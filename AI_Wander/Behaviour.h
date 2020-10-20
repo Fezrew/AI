@@ -1,6 +1,6 @@
 #pragma once
 #include "Agent.h"
-
+ 
 class Behaviour
 {
 public:
