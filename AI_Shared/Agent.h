@@ -29,20 +29,26 @@ public:
 	void SetSize(const int size) { m_size = size; }
 	void SetColour(Color col) { m_colour = col; }
 
-	//void AddForce(Vector2 force) { m_force = Vector2Add(force, m_force); }
 	int GetSize() const { return m_size; }
 	Vector2 GetSpeed() { return m_maxSpeed; }
 	Vector2 GetPosition() { return m_position; }
 	Vector2 GetVelocity() { return m_velocity; }
 	Color GetColour() const { return m_colour; }
 
+	void AddForce(Vector2 force) { m_force = Vector2Add(force, m_force); }
+
 protected:
 	vector<IBehaviour*> m_behaviourList;
-	Vector2 m_position, m_velocity, m_maxSpeed;//, m_force = { 0, 0 };
+	Vector2 m_position;
+	Vector2 m_velocity; 
+	Vector2 m_force = { 0, 0 };
+	float m_maxSpeed;
+
 	int m_size;
 	Color m_colour;
+
 	//Keep between 0 and 1, 0 is max friction, 1 is no friction
-	//float m_frictionModifier = 1;
+	float m_frictionModifier = 0.99;
 
 private:
 	Vector2 Truncate(Vector2 v, float max);

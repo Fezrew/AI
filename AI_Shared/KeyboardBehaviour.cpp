@@ -3,18 +3,22 @@
 void KeyboardBehaviour::Update(Agent* agent, float deltaTime)
 {
     Vector2 force = Vector2Zero();
+    float speed = agent->GetSpeed();
 
     if (IsKeyDown(KEY_UP))
-        force.y = -m_speedIncrement;
+        force.y = -speed;
     if (IsKeyDown(KEY_DOWN))
-        force.y = m_speedIncrement;
+        force.y = speed;
     if (IsKeyDown(KEY_LEFT))
-        force.x = -m_speedIncrement;
+        force.x = -speed;
     if (IsKeyDown(KEY_RIGHT))
-        force.x = m_speedIncrement;
+        force.x = speed;
 
     agent->AddForce(force);
+}
 
+#pragma region Commented code
+//{
 //    float X = agent->GetSpeed().x;
 //    float Y = agent->GetSpeed().y; 
 //    float Accel = agent->GetAcceleration(); 
@@ -58,8 +62,8 @@ void KeyboardBehaviour::Update(Agent* agent, float deltaTime)
 //#endif
 //
 //    agent->SetVelocity({ X * deltaTime, Y * deltaTime });
-}
-//
+//}
+
 //void KeyboardBehaviour::UpdateSpeed(Agent* agent, float& X, float& Y, float& Accel, float& Decel)
 //{
 //    X = agent->GetSpeed().x;
@@ -67,3 +71,4 @@ void KeyboardBehaviour::Update(Agent* agent, float deltaTime)
 //    Accel = agent->GetAcceleration();
 //    Decel = agent->GetDeceleration();
 //}
+#pragma endregion

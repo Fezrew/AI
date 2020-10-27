@@ -1,3 +1,4 @@
+#pragma region Commented Code
 /*#include "SteeringBehaviour.h"
 #include "Blackboard.h"
 
@@ -163,6 +164,7 @@ Force WanderForce::GetForce(Agent* agent) const
 
 	return{ wanderX * maxForce, wanderY * maxForce };*/
 //}
+#pragma endregion
 
 #include "Agent.h"
 #include "SteeringBehaviour.h"
