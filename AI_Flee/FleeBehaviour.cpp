@@ -1,6 +1,6 @@
 #include "FleeBehaviour.h"
 
-bool FleeBehaviour::Update(Agent* agent, float deltaTime)
+void FleeBehaviour::Update(Agent* agent, float deltaTime)
 {
 	Vector2 v = Vector2Subtract(agent->GetPosition(), m_destination);
 
@@ -8,7 +8,7 @@ bool FleeBehaviour::Update(Agent* agent, float deltaTime)
 	if (distance > m_fleeRadius)
 	{
 		agent->AddForce({ -agent->GetVelocity().x, -agent->GetVelocity().y });
-		return true;
+		return;
 	}
 
 	if (distance == 0)	// on top of destination
@@ -18,6 +18,4 @@ bool FleeBehaviour::Update(Agent* agent, float deltaTime)
 	Vector2 steeringForce = Vector2Subtract(desiredVelocity, agent->GetVelocity());
 
 	agent->AddForce(steeringForce);
-
-	return true;
 }

@@ -1,15 +1,15 @@
 #ifndef PURSUE_H
 #define PURSUE_H
-#include "Behavior.h"
+#include "Behaviour.h"
 #include <raylib.h>
 
-class Pursue :	public Behavior
+class Pursue :	public Behaviour
 {
 public:
 	Pursue();
 	~Pursue();
 	void Update(float deltaTime, Agent& agent);
-	inline virtual const char* GetBehaviorName() { return "Pursue"; }
+	inline virtual const char* GetBehaviourName() { return "Pursue"; }
 
 	Vector2* m_targetPosition;
 	Vector2* m_targetVelocity;

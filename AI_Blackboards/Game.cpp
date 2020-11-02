@@ -10,15 +10,18 @@
 Game::Game()
 	: m_requireFiremanQuestion(eBlackboardQuestionType::REQUIRE_FIREMAN),
 	m_requireMedicQuestion(eBlackboardQuestionType::REQUIRE_MEDIC),
-	m_respondBehaviour(&m_globalBlackboard) {
+	m_respondBehaviour(&m_globalBlackboard) 
+{
 
 }
 
-Game::~Game() {
+Game::~Game() 
+{
 
 }
 
-bool Game::Startup() {
+bool Game::Startup() 
+{
 	srand(time(nullptr));
 
 	// setup the behaviour of entities

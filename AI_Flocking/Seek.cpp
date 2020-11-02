@@ -17,7 +17,7 @@ void Seek::Update(float a_deltaTime, Agent& a_agent)
 	if (m_targetPosition != nullptr)
 	{
 		// Get the distance between the target position and our position
-		Vector2 distance = Vector2Subtract( *m_targetPosition , a_agent.m_movementInfo.m_position);
+		Vector2 distance = Vector2Subtract( *m_targetPosition , a_agent.GetPosition());
 
 		if (Vector2Length(distance) > 0)
 		{
@@ -25,13 +25,13 @@ void Seek::Update(float a_deltaTime, Agent& a_agent)
 			Vector2 normal = Vector2Normalize(distance);
 
 			// Calculate the force that will be added this frame
-			Vector2 force = Vector2Subtract(Vector2Scale(normal, a_agent.m_movementInfo.m_maxSpeed), a_agent.m_movementInfo.m_velocity);
+			Vector2 force = Vector2Subtract(Vector2Scale(normal, a_agent.GetMaxSpeed()), a_agent.GetVelocity());
 
 			// Make sure its within the specified bounds
-			force = Vector2Scale(Vector2Normalize(force), a_agent.m_movementInfo.m_maxForce);
+			force = Vector2Scale(Vector2Normalize(force), a_deltaTime);
 
 			// Add the force to the acceleration
-			a_agent.m_movementInfo.m_acceleration = Vector2Add(force, a_agent.m_movementInfo.m_acceleration);
+			a_agent.AddForce(force);
 		}
 	}
 }

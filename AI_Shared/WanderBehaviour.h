@@ -1,14 +1,14 @@
 #pragma once
-#include "Behaviour.h"
+#include "IBehaviour.h"
 
 class WanderBehaviour :
-	public Behaviour
+	public IBehaviour
 {
 public:
 	WanderBehaviour();
 	virtual ~WanderBehaviour() {};
 
-	virtual bool Update(Agent* agent, float deltaTime);
+	virtual void Update(Agent* agent, float deltaTime);
 
 	void Draw(Agent* agent);	// for debug only
 

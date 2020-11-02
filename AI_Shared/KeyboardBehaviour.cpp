@@ -3,7 +3,7 @@
 void KeyboardBehaviour::Update(Agent* agent, float deltaTime)
 {
     Vector2 force = Vector2Zero();
-    float speed = agent->GetSpeed();
+    float speed = agent->GetMaxSpeed();
 
     if (IsKeyDown(KEY_UP))
         force.y = -speed;

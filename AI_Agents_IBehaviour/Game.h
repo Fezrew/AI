@@ -1,7 +1,7 @@
 
 /*-----------------------------------------------------------------------------
 Author:			Elizabeth Rowlands			
-Description:	Steering Behaviors 1
+Description:	Steering Behaviours 1
 -----------------------------------------------------------------------------*/
 #ifndef GAME1_H
 #define GAME1_H
@@ -9,7 +9,7 @@ Description:	Steering Behaviors 1
 #include "raylib.h"
 
 class Agent;
-class KeyboardBehavior;
+class KeyboardBehaviour;
 
 class Game
 {
@@ -29,7 +29,7 @@ public:
 		
 private:	
 	Agent *m_testAgent;
-	KeyboardBehavior *m_keyboardBehavior;
+	KeyboardBehaviour *m_keyboardBehaviour;
 
 	Texture2D m_agentTexture;
 	Texture2D m_mouseTexture;

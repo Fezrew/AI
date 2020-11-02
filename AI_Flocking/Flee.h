@@ -2,21 +2,21 @@
 #define FLEE_H
 
 //--------
-//	Brief: A Flee behavior for an agent
+//	Brief: A Flee Behaviour for an agent
 //	Author: Elizabeth Rowlands
 //	Date: 4/3/2015
 //--------
 
-#include "Behavior.h"
+#include "Behaviour.h"
 #include <raylib.h>
 
-class Flee : public Behavior
+class Flee : public Behaviour
 {
 public:
 	Flee();
 	virtual ~Flee();
 	virtual void Update(float deltaTime, Agent& agent);
-	inline virtual const char* GetBehaviorName() { return "Flee"; }
+	inline virtual const char* GetBehaviourName() { return "Flee"; }
 
 	// X and Y position to flee from
 	Vector2 *m_targetPosition;

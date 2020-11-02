@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Behaviour.h"
+#include "IBehaviour.h"
 #include <string>
 
 // condition is also a behaviour so that it can work within a behaviour tree
-class Condition : public Behaviour {
+class Condition : public IBehaviour {
 public:
 
 	Condition() {}

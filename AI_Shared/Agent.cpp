@@ -3,12 +3,12 @@
 #include "raymath.h"
 #include <vector>
 
-Agent::Agent(Color col = RED, int size = 10, Vector2 position = { 200, 150 }, float speed = 100)
+Agent::Agent(Color col, int size, Vector2 position, float speed)
 {
 	SetColour(col);
 	SetSize(size);
 	SetPosition(position);
-	SetSpeed(speed);
+	SetMaxSpeed(speed);
 }
 
 Agent::~Agent()

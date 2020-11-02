@@ -1,6 +1,6 @@
 #include "ArriveBehaviour.h"
 
-bool ArriveBehaviour::Update(Agent* agent, float deltaTime)
+void ArriveBehaviour::Update(Agent* agent, float deltaTime)
 {
 	Vector2 desiredVelocity = Vector2Subtract(m_destination, agent->GetPosition());
 	float distance = Vector2Length(desiredVelocity);
@@ -12,7 +12,8 @@ bool ArriveBehaviour::Update(Agent* agent, float deltaTime)
 		// Inside the slowing area
 		desiredVelocity = Vector2Scale(Vector2Normalize(desiredVelocity), agent->GetMaxSpeed() * (distance / m_slowingRadius));
 	}
-	else {
+	else 
+	{
 		// Outside the slowing area.
 		desiredVelocity = Vector2Scale(Vector2Normalize(desiredVelocity), agent->GetMaxSpeed());
 	}
@@ -20,6 +21,4 @@ bool ArriveBehaviour::Update(Agent* agent, float deltaTime)
 	// Set the steering based on this
 	Vector2 steeringForce = Vector2Subtract(desiredVelocity, agent->GetVelocity());
 	agent->AddForce(steeringForce);
-
-	return true;
 }

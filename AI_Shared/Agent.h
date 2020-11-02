@@ -25,14 +25,16 @@ public:
 	//Movement functions
 	void SetVelocity(Vector2 velocity) { m_velocity = velocity; }
 	void SetPosition(Vector2 position) { m_position = position; }
-	void SetSpeed(Vector2 speed) { m_maxSpeed = speed; }
+	void SetMaxSpeed(float speed) { m_maxSpeed = speed; }
 	void SetSize(const int size) { m_size = size; }
 	void SetColour(Color col) { m_colour = col; }
 
 	int GetSize() const { return m_size; }
-	Vector2 GetSpeed() { return m_maxSpeed; }
+	float GetMaxSpeed() { return m_maxSpeed; }
+	float GetRotation() { return m_rotation; }
 	Vector2 GetPosition() { return m_position; }
 	Vector2 GetVelocity() { return m_velocity; }
+	Vector2 GetForce() { return m_force; }
 	Color GetColour() const { return m_colour; }
 
 	void AddForce(Vector2 force) { m_force = Vector2Add(force, m_force); }
@@ -43,6 +45,7 @@ protected:
 	Vector2 m_velocity; 
 	Vector2 m_force = { 0, 0 };
 	float m_maxSpeed;
+	float m_rotation;
 
 	int m_size;
 	Color m_colour;

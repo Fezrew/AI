@@ -19,7 +19,7 @@ void Pursue::Update(float a_deltaTime, Agent& a_agent)
 		return;
 
 	// Calculate the distance between the target and the agents position
-	Vector2 originalDistance = Vector2Subtract(*m_targetPosition,a_agent.m_movementInfo.m_position);
+	Vector2 originalDistance = Vector2Subtract(*m_targetPosition,a_agent.GetPosition());
 
 	// Calculate how far to predict based on the distance between the target and the agent
 	//float m_predictionAmount = glm::length(glm::normalize(originalDistance));
@@ -28,17 +28,17 @@ void Pursue::Update(float a_deltaTime, Agent& a_agent)
 	Vector2 pursueTarget = Vector2Add( *m_targetPosition , *m_targetVelocity);// * m_predictionAmount;
 	
 	// Get the distance between the target position and our position
-	Vector2 distance = Vector2Subtract( pursueTarget , a_agent.m_movementInfo.m_position);
+	Vector2 distance = Vector2Subtract( pursueTarget , a_agent.GetPosition());
 	
 	// Normalize the direction
 	Vector2 normal = Vector2Normalize(distance);
 
 	// Calculate the force that will be added this frame
-	Vector2 force = Vector2Subtract(Vector2Scale(normal , a_agent.m_movementInfo.m_maxSpeed), a_agent.m_movementInfo.m_velocity);
+	Vector2 force = Vector2Subtract(Vector2Scale(normal , a_agent.GetMaxSpeed()), a_agent.GetVelocity());
 
 	// Make sure its within the specified bounds
-	force = Vector2Scale(Vector2Normalize(force) , a_agent.m_movementInfo.m_maxForce);
+	force = Vector2Scale(Vector2Normalize(force) , a_deltaTime);
 
 	// Add the force to the acceleration
-	a_agent.m_movementInfo.m_acceleration = Vector2Add(force, a_agent.m_movementInfo.m_acceleration);
+	a_agent.AddForce(force);
 }

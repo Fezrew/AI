@@ -33,7 +33,7 @@
 Agent* m_seeker;
 static std::vector<Agent*> agents;
 
-std::vector<Behavior*>	   behaviors;
+std::vector<IBehaviour*>	   Behaviours;
 std::vector<Circle*>	   circles;
 
 int mouse_x = 0;
@@ -54,25 +54,25 @@ int main(int argc, char* argv[])
 
     // Setup scenario
     Vector2 startAt = { (float)screenWidth * 0.5f, ((float)screenHeight * 0.5f) };
-    m_seeker = new Agent(startAt);
+    m_seeker = new Agent(RED, 10, startAt);
 
 
     Seek* seek = new Seek();
     seek->m_targetPosition = &mouse_xy;
 
-    behaviors.push_back(seek);
-    m_seeker->AddBehavior(seek);
+    Behaviours.push_back(seek);
+    m_seeker->AddBehaviour(seek);
 
     Avoid* avoid = new Avoid();
     avoid->m_circles = &circles;
-    avoid->m_targetPosition = &m_seeker->m_movementInfo.m_position;
+    avoid->m_targetPosition = &m_seeker->GetPosition();
 
-    behaviors.push_back(avoid);
+    Behaviours.push_back(avoid);
 
     Flee* flee = new Flee();
     flee->m_targetPosition = &mouse_xy;
 
-    behaviors.push_back(flee);
+    Behaviours.push_back(flee);
 
     // Create our agents
     unsigned int agentAmount = 20;
@@ -80,8 +80,8 @@ int main(int argc, char* argv[])
     {
         startAt = { 400.0f + i * 5, 300.0f + i * 5 };
         agents.push_back(new Agent(startAt));
-        agents[i]->AddBehavior(avoid);
-        //m_agents[i]->AddBehavior(flee);
+        agents[i]->AddBehaviour(avoid);
+        //m_agents[i]->AddBehaviour(flee);
     }
 
     Agent::agents = &agents;
@@ -140,12 +140,12 @@ int main(int argc, char* argv[])
             DrawCircle(circle->m_position.x, circle->m_position.y, circle->m_radius, Color{ 0,255,0,255 });
         }
 
-        DrawCircle(m_seeker->m_movementInfo.m_position.x, m_seeker->m_movementInfo.m_position.y, 5, Color{ 255,0,0,255 });
+        DrawCircle(m_seeker->GetPosition().x, m_seeker->GetPosition().y, 5, Color{ 255,0,0,255 });
 
         // Draw the agents at their current position and rotation
         for (auto agent : agents)
         {
-            DrawCircle(agent->m_movementInfo.m_position.x, agent->m_movementInfo.m_position.y, 5, Color{ 255,255,0,255});
+            DrawCircle(agent->GetPosition().x, agent->GetPosition().y, 5, Color{ 255,255,0,255});
         }
 
         // Draw Agents
@@ -167,11 +167,11 @@ int main(int argc, char* argv[])
     }
     agents.clear();
 
-    for (unsigned int i = 0; i < behaviors.size(); i++)
+    for (unsigned int i = 0; i < Behaviours.size(); i++)
     {
-        delete behaviors[i];
+        delete Behaviours[i];
     }
-    behaviors.clear();
+    Behaviours.clear();
 
     for (unsigned int i = 0; i < circles.size(); i++)
     {

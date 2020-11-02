@@ -35,25 +35,25 @@ void Wander::Update(float a_deltaTime, Agent& a_agent)
 		std::uniform_real_distribution<float> distibution(-m_angleStepping * 2.0f, 0);
 		float angleModifier = distibution(gen);
 
-		// Set our new rotation which the old rotation plus the angle modifier
-		a_agent.m_movementInfo.m_rotation += angleModifier;
+		//// Set our new rotation which the old rotation plus the angle modifier
+		//a_agent.m_movementInfo.m_rotation += angleModifier;
 
-		// calculate the new target X and Y based on the new rotation
-		float s = sinf(a_agent.m_movementInfo.m_rotation);
-		float c = cosf(a_agent.m_movementInfo.m_rotation);
-		m_targetPosition.x = (a_agent.m_movementInfo.m_position.x * c) - (a_agent.m_movementInfo.m_position.y * s);
-		m_targetPosition.y = (a_agent.m_movementInfo.m_position.x * s) + (a_agent.m_movementInfo.m_position.y * c);
+		//// calculate the new target X and Y based on the new rotation
+		//float s = sinf(a_agent.m_movementInfo.m_rotation);
+		//float c = cosf(a_agent.m_movementInfo.m_rotation);
+		/*m_targetPosition.x = (a_agent.GetPosition().x * c) - (a_agent.GetPosition().y * s);
+		m_targetPosition.y = (a_agent.GetPosition().x * s) + (a_agent.GetPosition().y * c);*/
 	}
 		
 	// Get the normal of the new target position
 	Vector2 normal = Vector2Normalize(m_targetPosition);
 
 	// Calculate the force to get there
-	Vector2 force =  Vector2Subtract(Vector2Scale(normal, a_agent.m_movementInfo.m_maxSpeed), a_agent.m_movementInfo.m_velocity);
+	Vector2 force =  Vector2Subtract(Vector2Scale(normal, a_agent.GetMaxSpeed()), a_agent.GetVelocity());
 		
 	// Cap the force
-	force = Vector2Scale(force , a_agent.m_movementInfo.m_maxForce);
+	force = Vector2Scale(force , a_deltaTime);
 
 	// Apply the force to acceleration
-	a_agent.m_movementInfo.m_acceleration = Vector2Add( force, a_agent.m_movementInfo.m_acceleration);
+	a_agent.AddForce(force);
 }
