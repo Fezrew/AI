@@ -15,7 +15,8 @@ Agent::~Agent()
 {
 	for (IBehaviour* b : m_behaviourList)
 	{
-		delete b;
+		// TODO: Fix
+		//delete b;
 	}
 }
 
@@ -46,7 +47,7 @@ void Agent::Update(float deltaTime)
 void Agent::Draw()
 {
 	//DrawRectangle(m_position.x, m_position.y, m_size, m_size, m_colour);
-	DrawCircle(m_position.x, m_position.y, m_size, m_colour);
+	//DrawCircle(m_position.x, m_position.y, m_size, m_colour);
 
 	//Loop over all behaviours and allow them to draw
 	for (IBehaviour* b : m_behaviourList)
