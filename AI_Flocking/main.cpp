@@ -29,7 +29,6 @@
 #include "Avoid.h"
 #include "Flee.h"
 
-
 Agent* m_seeker;
 static std::vector<Agent*> agents;
 
@@ -42,142 +41,143 @@ Vector2 mouse_xy;
 
 int main(int argc, char* argv[])
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    int screenWidth = 800;
-    int screenHeight = 600;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - Flocking AI");
+	// Initialization
+	//--------------------------------------------------------------------------------------
+	int screenWidth = 800;
+	int screenHeight = 600;
 
-    SetTargetFPS(60);
-    //--------------------------------------------------------------------------------------
+	InitWindow(screenWidth, screenHeight, "raylib [core] example - Flocking AI");
 
-    // Setup scenario
-    Vector2 startAt = { (float)screenWidth * 0.5f, ((float)screenHeight * 0.5f) };
-    m_seeker = new Agent(RED, 10, startAt);
+	SetTargetFPS(60);
+	//--------------------------------------------------------------------------------------
 
-
-    Seek* seek = new Seek();
-    seek->m_targetPosition = &mouse_xy;
-
-    Behaviours.push_back(seek);
-    m_seeker->AddBehaviour(seek);
-
-    Avoid* avoid = new Avoid();
-    avoid->m_circles = &circles;
-    avoid->m_targetPosition = &m_seeker->GetPosition();
-
-    Behaviours.push_back(avoid);
-
-    Flee* flee = new Flee();
-    flee->m_targetPosition = &mouse_xy;
-
-    Behaviours.push_back(flee);
-
-    // Create our agents
-    unsigned int agentAmount = 20;
-    for (unsigned int i = 0; i < agentAmount; i++)
-    {
-        startAt = { 400.0f + i * 5, 300.0f + i * 5 };
-        agents.push_back(new Agent(startAt));
-        agents[i]->AddBehaviour(avoid);
-        //m_agents[i]->AddBehaviour(flee);
-    }
-
-    Agent::agents = &agents;
-
-    // Create circles to use as obsticles
-    unsigned int circleAmount = rand() % 25;
-    for (unsigned int i = 0; i <= circleAmount; i++)
-    {
-        circles.push_back(new Circle( Vector2{ (float)(rand() % screenWidth), (float)(rand() % screenHeight) }, (float)(rand() % 40)));
-    }
-    // End setup
+	// Setup scenario
+	Vector2 startAt = { (float)screenWidth * 0.5f, ((float)screenHeight * 0.5f) };
+	m_seeker = new Agent(RED, 10, startAt);
 
 
-    float deltaTime = 0;
+	Seek* seek = new Seek();
+	seek->m_targetPosition = &mouse_xy;
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+	Behaviours.push_back(seek);
+	m_seeker->AddBehaviour(seek);
 
-        deltaTime = GetFrameTime();
+	Avoid* avoid = new Avoid();
+	avoid->m_circles = &circles;
+	avoid->m_targetPosition = &m_seeker->GetPosition();
 
-        if (IsMouseButtonDown(0) == true)
-        {
-            //GetMousePosition
-              // Update Agents;
-              // Store the mouse position as floats here to conversions don't have to happen else where
-            mouse_xy = GetMousePosition();
-        }
-        
-        m_seeker->Update(deltaTime);
+	Behaviours.push_back(avoid);
 
-        // update the agents to sense, think, and act
-        for (unsigned int i = 0; i < agents.size(); i++)
-        {
-            agents[i]->Update(deltaTime);
-        }
+	Flee* flee = new Flee();
+	flee->m_targetPosition = &mouse_xy;
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
+	Behaviours.push_back(flee);
 
-        ClearBackground({0,0,0,255});
+	// Create our agents
+	unsigned int agentAmount = 20;
+	for (unsigned int i = 0; i < agentAmount; i++)
+	{
+		startAt = { 400.0f + i * 5, 300.0f + i * 5 };
+		agents.push_back(new Agent(RED, 10, startAt));
+		agents[i]->AddBehaviour(avoid);
+		//agents[i]->AddBehaviour(flee);
+	}
 
-        // Draw Debug
-        DrawText("Click anywhere to set a new target position", 20, 20, 12, RED);
-        //DrawLine(target.x - 5, target.y, target.x + 5, target.y, BLUE);
-        //DrawLine(target.x, target.y - 5, target.x, target.y + 5, BLUE);
+	Agent::agents = &agents;
 
-        // Draw the circles
-        for (auto circle : circles)
-        {
-            DrawCircle(circle->m_position.x, circle->m_position.y, circle->m_radius, Color{ 0,255,0,255 });
-        }
-
-        DrawCircle(m_seeker->GetPosition().x, m_seeker->GetPosition().y, 5, Color{ 255,0,0,255 });
-
-        // Draw the agents at their current position and rotation
-        for (auto agent : agents)
-        {
-            DrawCircle(agent->GetPosition().x, agent->GetPosition().y, 5, Color{ 255,255,0,255});
-        }
-
-        // Draw Agents
-
-        EndDrawing();
-        //----------------------------------------------------------------------------------
-    }
+	// Create circles to use as obsticles
+	unsigned int circleAmount = rand() % 25;
+	for (unsigned int i = 0; i <= circleAmount; i++)
+	{
+		circles.push_back(new Circle(Vector2{ (float)(rand() % screenWidth), (float)(rand() % screenHeight) }, (float)(rand() % 40)));
+	}
+	// End setup
 
 
+	float deltaTime = 0;
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------   
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+	// Main game loop
+	while (!WindowShouldClose())    // Detect window close button or ESC key
+	{
+		// Update
+		//----------------------------------------------------------------------------------
+		// TODO: Update your variables here
+		//----------------------------------------------------------------------------------
 
-    for (unsigned int i = 0; i < agents.size(); i++)
-    {
-        delete agents[i];
-    }
-    agents.clear();
+		deltaTime = GetFrameTime();
 
-    for (unsigned int i = 0; i < Behaviours.size(); i++)
-    {
-        delete Behaviours[i];
-    }
-    Behaviours.clear();
+		if (IsMouseButtonDown(0) == true)
+		{
+			//GetMousePosition
+			  // Update Agents;
+			  // Store the mouse position as floats here to conversions don't have to happen else where
+			mouse_xy = GetMousePosition();
+		}
 
-    for (unsigned int i = 0; i < circles.size(); i++)
-    {
-        delete circles[i];
-    }
-    circles.clear();
+		m_seeker->Update(deltaTime);
 
-    return 0;
+		// update the agents to sense, think, and act
+		for (unsigned int i = 0; i < agents.size(); i++)
+		{
+			agents[i]->Update(deltaTime);
+		}
+
+		// Draw
+		//----------------------------------------------------------------------------------
+		BeginDrawing();
+
+		ClearBackground({ 0,0,0,255 });
+
+		// Draw Debug
+		DrawText("Click anywhere to set a new target position", 20, 20, 12, RED);
+		//DrawLine(target.x - 5, target.y, target.x + 5, target.y, BLUE);
+		//DrawLine(target.x, target.y - 5, target.x, target.y + 5, BLUE);
+
+		// Draw the circles
+		for (auto circle : circles)
+		{
+			DrawCircle(circle->m_position.x, circle->m_position.y, circle->m_radius, Color{ 0,255,0,255 });
+		}
+
+		DrawCircle(m_seeker->GetPosition().x, m_seeker->GetPosition().y, 5, Color{ 255,0,0,255 });
+
+		// Draw the agents at their current position and rotation
+		for (auto agent : agents)
+		{
+			DrawCircle(agent->GetPosition().x, agent->GetPosition().y, 5, Color{ 255,255,0,255 });
+		}
+
+		// Draw Agents
+
+		EndDrawing();
+		//----------------------------------------------------------------------------------
+	}
+
+
+
+	// De-Initialization
+	//--------------------------------------------------------------------------------------   
+	CloseWindow();        // Close window and OpenGL context
+	//--------------------------------------------------------------------------------------
+
+	for (unsigned int i = 0; i < agents.size(); i++)
+	{
+		delete agents[i];
+	}
+	agents.clear();
+
+	for (unsigned int i = 0; i < Behaviours.size(); i++)
+	{
+		delete Behaviours[i];
+	}
+	Behaviours.clear();
+
+	for (unsigned int i = 0; i < circles.size(); i++)
+	{
+		delete circles[i];
+	}
+	circles.clear();
+
+	return 0;
 }

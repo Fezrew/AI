@@ -7,15 +7,15 @@
 //	Date: 4/3/2015
 //--------
 
-#include "Behaviour.h"
+#include "IBehaviour.h"
 #include <raylib.h>
 
-class Seek : public Behaviour
+class Seek : public IBehaviour
 {
 public:
 	Seek();
 	virtual ~Seek();
-	virtual void Update(float deltaTime, Agent& agent);
+	virtual void Update(Agent* agent, float deltaTime);
 	inline virtual const char* GetBehaviourName() { return "Seek"; }
 
 	// X and Y position to seek towards

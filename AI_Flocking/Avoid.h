@@ -1,18 +1,18 @@
 #ifndef AVOID_H
 #define AVOID_H
-#include "Behaviour.h"
+#include "IBehaviour.h"
 #include <vector>
 #include <raylib.h>
 
 class Circle;
 
-class Avoid : public Behaviour
+class Avoid : public IBehaviour
 {
 public:
 	Avoid();
 	~Avoid();
 
-	void Update(float deltaTime, Agent& agent);
+	void Update(Agent* agent, float deltaTime);
 	inline virtual const char* GetBehaviourName() { return "Avoid"; }
 
 	float m_maxSeeAhead;

@@ -7,15 +7,15 @@
 //	Date: 4/3/2015
 //--------
 
-#include "Behaviour.h"
+#include "IBehaviour.h"
 #include <raylib.h>
 
-class Flee : public Behaviour
+class Flee : public IBehaviour
 {
 public:
 	Flee();
 	virtual ~Flee();
-	virtual void Update(float deltaTime, Agent& agent);
+	virtual void Update(Agent* agent, float deltaTime);
 	inline virtual const char* GetBehaviourName() { return "Flee"; }
 
 	// X and Y position to flee from
