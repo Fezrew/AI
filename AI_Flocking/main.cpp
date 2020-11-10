@@ -32,8 +32,8 @@
 Agent* m_seeker;
 static std::vector<Agent*> agents;
 
-std::vector<IBehaviour*>	   Behaviours;
-std::vector<Circle*>	   circles;
+std::vector<IBehaviour*> Behaviours;
+std::vector<Circle*> circles;
 
 int mouse_x = 0;
 int mouse_y = 0;
@@ -56,35 +56,29 @@ int main(int argc, char* argv[])
 	Vector2 startAt = { (float)screenWidth * 0.5f, ((float)screenHeight * 0.5f) };
 	m_seeker = new Agent(RED, 10, startAt);
 
-
 	Seek* seek = new Seek();
 	seek->m_targetPosition = &mouse_xy;
 
-	Behaviours.push_back(seek);
 	m_seeker->AddBehaviour(seek);
-
-	Avoid* avoid = new Avoid();
-	avoid->m_circles = &circles;
-	avoid->m_targetPosition = &m_seeker->GetPosition();
-
-	Behaviours.push_back(avoid);
 
 	Flee* flee = new Flee();
 	flee->m_targetPosition = &mouse_xy;
-
-	Behaviours.push_back(flee);
 
 	// Create our agents
 	unsigned int agentAmount = 20;
 	for (unsigned int i = 0; i < agentAmount; i++)
 	{
+		Avoid* avoid = new Avoid();
+		avoid->m_circles = &circles;
+		avoid->m_targetPosition = &m_seeker->GetPosition();
+
 		startAt = { 400.0f + i * 5, 300.0f + i * 5 };
 		agents.push_back(new Agent(RED, 10, startAt));
 		agents[i]->AddBehaviour(avoid);
 		//agents[i]->AddBehaviour(flee);
 	}
 
-	Agent::agents = &agents;
+	//Agent::agents = &agents;
 
 	// Create circles to use as obsticles
 	unsigned int circleAmount = rand() % 25;
@@ -167,11 +161,11 @@ int main(int argc, char* argv[])
 	}
 	agents.clear();
 
-	for (unsigned int i = 0; i < Behaviours.size(); i++)
+	/*for (unsigned int i = 0; i < Behaviours.size(); i++)
 	{
 		delete Behaviours[i];
 	}
-	Behaviours.clear();
+	Behaviours.clear();*/
 
 	for (unsigned int i = 0; i < circles.size(); i++)
 	{

@@ -63,7 +63,6 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
     }
 
-    delete keyboardBehaviour;
     delete player;
 
     // De-Initialization

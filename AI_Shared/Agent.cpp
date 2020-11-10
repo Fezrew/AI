@@ -15,8 +15,7 @@ Agent::~Agent()
 {
 	for (IBehaviour* b : m_behaviourList)
 	{
-		// TODO: Fix
-		//delete b;
+		delete b;
 	}
 }
 
@@ -37,17 +36,17 @@ void Agent::Update(float deltaTime)
 	}
 
 	//Integrate the velocity to apply a position change
-	Vector2 velocity = GetVelocity();
+	SetVelocity(Truncate(Vector2Add(GetVelocity(), GetForce()), m_maxSpeed));
 	//Apply the velocity to modifiy position
-	Vector2 translation = Vector2Scale(velocity, deltaTime);
-	SetPosition(Vector2Add(GetPosition(), translation));
+	//Vector2 translation = Vector2Scale(force, deltaTime);
+	SetPosition(Vector2Add(GetPosition(), Vector2Scale(GetVelocity(), deltaTime)));
 }
 
 //Draw the agent
 void Agent::Draw()
 {
-	//DrawRectangle(m_position.x, m_position.y, m_size, m_size, m_colour);
-	//DrawCircle(m_position.x, m_position.y, m_size, m_colour);
+	DrawRectangle(m_position.x, m_position.y, m_size, m_size, m_colour);
+	DrawCircle(m_position.x, m_position.y, m_size, m_colour);
 
 	//Loop over all behaviours and allow them to draw
 	for (IBehaviour* b : m_behaviourList)

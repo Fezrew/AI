@@ -5,13 +5,13 @@ void KeyboardBehaviour::Update(Agent* agent, float deltaTime)
     Vector2 force = Vector2Zero();
     float speed = agent->GetMaxSpeed();
 
-    if (IsKeyDown(KEY_UP))
+    if (IsKeyDown(KEY_W))
         force.y = -speed;
-    if (IsKeyDown(KEY_DOWN))
+    if (IsKeyDown(KEY_S))
         force.y = speed;
-    if (IsKeyDown(KEY_LEFT))
+    if (IsKeyDown(KEY_A))
         force.x = -speed;
-    if (IsKeyDown(KEY_RIGHT))
+    if (IsKeyDown(KEY_D))
         force.x = speed;
 
     agent->AddForce(force);

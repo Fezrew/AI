@@ -29,7 +29,6 @@ bool Game::Startup()
 void Game::Shutdown()
 {	
 	delete m_testAgent;
-	delete m_keyboardBehaviour;
 
 	UnloadTexture(m_agentTexture);
 	UnloadTexture(m_mouseTexture);

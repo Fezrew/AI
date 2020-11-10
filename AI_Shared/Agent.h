@@ -24,20 +24,24 @@ public:
 
 	//Movement functions
 	void SetVelocity(Vector2 velocity) { m_velocity = velocity; }
-	void SetPosition(Vector2 position) { m_position = position; }
-	void SetMaxSpeed(float speed) { m_maxSpeed = speed; }
-	void SetSize(const int size) { m_size = size; }
-	void SetColour(Color col) { m_colour = col; }
-
-	int GetSize() const { return m_size; }
-	float GetMaxSpeed() { return m_maxSpeed; }
-	float GetRotation() { return m_rotation; }
-	Vector2 GetPosition() { return m_position; }
 	Vector2 GetVelocity() { return m_velocity; }
-	Vector2 GetForce() { return m_force; }
+
+	void SetPosition(Vector2 position) { m_position = position; }
+	Vector2 GetPosition() { return m_position; }
+	
+	void SetMaxSpeed(float speed) { m_maxSpeed = speed; }
+	float GetMaxSpeed() { return m_maxSpeed; }
+	
+	void SetSize(const int size) { m_size = size; }
+	int GetSize() const { return m_size; }
+	
+	void SetColour(Color col) { m_colour = col; }
 	Color GetColour() const { return m_colour; }
 
-	void AddForce(Vector2 force) { m_force = Vector2Add(force, m_force); }
+	float GetRotation() { return m_rotation; }
+
+	Vector2 GetForce() { return m_force; }
+	void AddForce(Vector2 force) { m_force = Truncate(Vector2Add(force, m_force), m_maxSpeed); }
 
 protected:
 	vector<IBehaviour*> m_behaviourList;

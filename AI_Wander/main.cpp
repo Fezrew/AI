@@ -79,7 +79,6 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
     }
 
-    delete wanderBehaviour;
     delete wanderer;
 
 

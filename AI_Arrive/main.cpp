@@ -78,7 +78,6 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
     }
 
-    delete arriveBehaviour;
     delete seeker;
 
 
