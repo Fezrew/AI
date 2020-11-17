@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RayGUI_Widgets", "RayGUI_Wi
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Raylib", "Raylib\Bindings\Raylib.shproj", "{F660FF67-D70E-4AE0-9080-D922243E9B6E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI_Game", "AI_Game\AI_Game.vcxproj", "{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Raylib\Bindings\Raylib.projitems*{f660ff67-d70e-4ae0-9080-d922243e9b6e}*SharedItemsImports = 13
@@ -116,6 +118,14 @@ Global
 		{5410FC57-321E-43D5-837C-7A47033041B8}.Release|x64.Build.0 = Release|x64
 		{5410FC57-321E-43D5-837C-7A47033041B8}.Release|x86.ActiveCfg = Release|Win32
 		{5410FC57-321E-43D5-837C-7A47033041B8}.Release|x86.Build.0 = Release|Win32
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Debug|x64.ActiveCfg = Debug|x64
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Debug|x64.Build.0 = Debug|x64
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Debug|x86.Build.0 = Debug|Win32
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Release|x64.ActiveCfg = Release|x64
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Release|x64.Build.0 = Release|x64
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Release|x86.ActiveCfg = Release|Win32
+		{8E69D5C6-924D-4862-B0E0-04D7D31E07BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

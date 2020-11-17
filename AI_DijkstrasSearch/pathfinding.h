@@ -3,15 +3,18 @@
 #include <vector>
 #include <algorithm>
 
-namespace pathfinding {
+namespace pathfinding 
+{
 	struct Node;
 
-	struct Edge {
+	struct Edge 
+	{
 		Node* target;
 		float cost;
 	};
 
-	struct Node {
+	struct Node 
+	{
 		Vector2 position;
 
 		float gScore;
