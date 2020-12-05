@@ -118,7 +118,7 @@ namespace pathfinding
 		//Draw the inner circle
 		if (selected)
 		{
-			DrawCircle(node->position.x, node->position.y, 22, BROWN);
+			DrawCircle(node->position.x, node->position.y, 22, GREEN);
 		}
 		else
 		{

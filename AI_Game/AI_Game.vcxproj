@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -164,13 +164,18 @@
   <ItemGroup>
     <ClCompile Include="..\AI_Shared\Agent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NodeMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AI_Shared\Agent.h" />
     <ClInclude Include="..\AI_Shared\Behaviour.h" />
     <ClInclude Include="..\AI_Shared\IBehaviour.h" />
+    <ClInclude Include="NodeMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AI_DijkstrasSearch\AI_DijkstrasSearch.vcxproj">
+      <Project>{fa08050d-5807-42e6-9d9e-9abbe3af23c9}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\RayGUI_Widgets\RayGUI_Widgets.vcxproj">
       <Project>{5410fc57-321e-43d5-837c-7a47033041b8}</Project>
     </ProjectReference>
