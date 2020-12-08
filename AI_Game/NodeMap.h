@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+using namespace std;
+
 class NodeMap
 {
 public:
@@ -16,6 +18,9 @@ public:
 
 	struct Node
 	{
+		bool isWater = false;
+		bool isFood = false;
+		bool isGround = true;
 		Vector2 position;
 
 		float gScore;
@@ -27,8 +32,8 @@ public:
 	NodeMap();
 	~NodeMap();
 	Node WorldNode[16][10];
+	vector<Node*> DijkstrasSearch(Node* startNode, Node* endNode);
 
-	void DrawNode(Node* node, bool selected = false);
 	void DrawGraph();
 };
 
