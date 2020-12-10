@@ -7,6 +7,8 @@
 NodeMap* map = nullptr;
 float hungerCap = 600;
 float thirstCap = 300;
+bool hungry = false;
+bool thirsty = false;
 
 int main(int argc, char* argv[])
 {
@@ -45,6 +47,7 @@ int main(int argc, char* argv[])
 
 		deltaTime = GetFrameTime();
 
+#pragma region Hunger/Thirst Coding
 		if (IsKeyDown(KEY_A))
 		{
 			move->Seek(&map->WorldNode[2][4]);
@@ -54,12 +57,69 @@ int main(int argc, char* argv[])
 			move->Seek(&map->WorldNode[13][4]);
 		}
 
+		if (thirst <= 150)
+		{
+			thirsty = true;
+		}
+		if (hunger <= 450)
+		{
+			hungry = true;
+		}
+
+		if (hungry || thirsty)
+		{
+			move->canWander = false;
+			if (thirsty)
+			{
+				move->Seek(&map->WorldNode[2][4]);
+				if (thirst >= thirstCap)
+				{
+					thirsty = false;
+				}
+			}
+			else if (!thirsty && hungry)
+			{
+				move->Seek(&map->WorldNode[13][4]);
+				if (hunger >= hungerCap)
+				{
+					hungry = false;
+				}
+			}
+		}
+		else if (!hungry && !thirsty)
+		{
+			move->canWander = true;
+		}
+
 		move->Update(boy, deltaTime);
 		boy->Update(deltaTime);
 
-		thirst -= deltaTime;
-		hunger -= deltaTime;
+		if (boy->GetPosition().x <= map->WorldNode[1][4].position.x + 20 && boy->GetPosition().x >= map->WorldNode[1][4].position.x - 20)
+		{
+			if (boy->GetPosition().y <= map->WorldNode[1][4].position.y + 20 && boy->GetPosition().y >= map->WorldNode[1][4].position.y - 20)
+			{
+				thirst += deltaTime * 10;
+			}
+		}
+		else
+		{
+			thirst -= deltaTime;
+		}
 
+		if (boy->GetPosition().x <= map->WorldNode[14][4].position.x + 20 && boy->GetPosition().x >= map->WorldNode[14][4].position.x - 20)
+		{
+			if (boy->GetPosition().y <= map->WorldNode[14][4].position.y + 20 && boy->GetPosition().y >= map->WorldNode[14][4].position.y - 20)
+			{
+				hunger += deltaTime * 10;
+			}
+		}
+		else
+		{
+			hunger -= deltaTime;
+		}
+#pragma endregion
+
+#pragma region Drawing
 		// Draw
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
@@ -72,7 +132,7 @@ int main(int argc, char* argv[])
 		}
 		boy->Draw();
 
-		char buffer[3];
+		char buffer[4];
 		char output[50];
 
 		strcpy_s(output, "Hunger: ");
@@ -87,6 +147,7 @@ int main(int argc, char* argv[])
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
+#pragma endregion
 	}
 
 	delete map;
