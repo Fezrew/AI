@@ -15,7 +15,7 @@ public:
 	void Wander();
 	void Seek(NodeMap::Node* m_destination);
 
-	NodeMap::Node* targetNode;
+	NodeMap::Node* targetNode = nullptr;
 	vector<NodeMap::Node*> theTrailWeBlaze;
 	int walkWays = 0;
 	bool canWander = true;

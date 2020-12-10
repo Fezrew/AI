@@ -55,7 +55,7 @@ protected:
 	Color m_colour;
 
 	//Keep between 0 and 1, 0 is max friction, 1 is no friction
-	float m_frictionModifier = 0.99;
+	float m_frictionModifier = 0.99f;
 
 private:
 	Vector2 Truncate(Vector2 v, float max);

@@ -11,8 +11,8 @@ NodeMap::NodeMap()
 	{
 		for (int y = 0; y <= 9; y++)
 		{
-			WorldNode[x][y].position.x = x * 50 + 15;
-			WorldNode[x][y].position.y = y * 50 + 15;
+			WorldNode[x][y].position.x = (int)x * 50 + 15;
+			WorldNode[x][y].position.y = (int)y * 50 + 15;
 
 			WorldNode[x][y].isWater = false;
 			WorldNode[x][y].isFood = false;

@@ -18,9 +18,9 @@ public:
 
 	struct Node
 	{
-		bool isWater;
-		bool isFood;
-		bool isGround;
+		bool isWater = false;
+		bool isFood = false;
+		bool isGround = true;
 		Vector2 position;
 
 		float gScore = 0;

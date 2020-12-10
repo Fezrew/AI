@@ -5,7 +5,7 @@ extern NodeMap* map;
 
 MoveBehaviour::MoveBehaviour()
 {
-
+	targetNode = nullptr;
 }
 
 MoveBehaviour::~MoveBehaviour()

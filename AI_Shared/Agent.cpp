@@ -22,7 +22,7 @@ Agent::~Agent()
 Vector2 Agent::Truncate(Vector2 v, float max)
 {
 	float i = max / Vector2Length(v);
-	i = i < 1.0 ? i : 1.0;
+	i = i < 1.0f ? i : 1.0f;
 	return Vector2Scale(v, i);
 }
 

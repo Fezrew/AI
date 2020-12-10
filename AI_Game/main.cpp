@@ -48,15 +48,6 @@ int main(int argc, char* argv[])
 		deltaTime = GetFrameTime();
 
 #pragma region Hunger/Thirst Coding
-		if (IsKeyDown(KEY_A))
-		{
-			move->Seek(&map->WorldNode[2][4]);
-		}
-		else if (IsKeyDown(KEY_S))
-		{
-			move->Seek(&map->WorldNode[13][4]);
-		}
-
 		if (thirst <= 150)
 		{
 			thirsty = true;
