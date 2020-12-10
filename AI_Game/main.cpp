@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	float hunger = hungerCap;
 	float thirst = thirstCap;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "He vibing");
 
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
