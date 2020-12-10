@@ -71,7 +71,11 @@ int main(int argc, char* argv[])
 			move->canWander = false;
 			if (thirsty)
 			{
-				move->Seek(&map->WorldNode[2][4]);
+				if (move->theTrailWeBlaze.size() == 0)
+				{
+					move->Seek(&map->WorldNode[2][4]);
+				}
+
 				if (thirst >= thirstCap)
 				{
 					thirsty = false;
@@ -79,7 +83,10 @@ int main(int argc, char* argv[])
 			}
 			else if (!thirsty && hungry)
 			{
-				move->Seek(&map->WorldNode[13][4]);
+				if (move->theTrailWeBlaze.size() == 0)
+				{
+					move->Seek(&map->WorldNode[13][4]);
+				}
 				if (hunger >= hungerCap)
 				{
 					hungry = false;
