@@ -1,50 +1,99 @@
 #include "raylib.h"
+#include "MoveBehaviour.h"
 #include "Agent.h"
 #include "NodeMap.h"
+#include <string>
+
+NodeMap* map = nullptr;
+float hungerCap = 600;
+float thirstCap = 300;
 
 int main(int argc, char* argv[])
 {
-    NodeMap* map = new NodeMap();
+	// Initialization
+	//--------------------------------------------------------------------------------------
+	int screenWidth = 800;
+	int screenHeight = 500;
+	float hunger = hungerCap;
+	float thirst = thirstCap;
 
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    int screenWidth = 800;
-    int screenHeight = 500;
+	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	SetTargetFPS(60);
+	//--------------------------------------------------------------------------------------
+	map = new NodeMap();
 
-    SetTargetFPS(60);
-    //--------------------------------------------------------------------------------------
+	Agent* boy = new Agent();
+	boy->SetPosition({ (float)(screenWidth >> 1), (float)(screenHeight >> 1) });
+	boy->SetMaxSpeed(50);
 
-    float deltaTime = 0;
+	MoveBehaviour* move = new MoveBehaviour;
+	move->targetNode = &map->WorldNode[8][5];
+	move->SetDestination(move->targetNode);
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+	boy->AddBehaviour(move);
 
-        deltaTime = GetFrameTime();
+	float deltaTime = 0;
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+	// Main game loop
+	while (!WindowShouldClose())    // Detect window close button or ESC key
+	{
+		// Update
+		//----------------------------------------------------------------------------------
+		// TODO: Update your variables here
+		//----------------------------------------------------------------------------------
 
-        map->DrawGraph();
-        //DrawText("Click anywhere to set a new target position", 20, 20, 12, RED);
+		deltaTime = GetFrameTime();
 
-        EndDrawing();
-        //----------------------------------------------------------------------------------
-    }
+		if (IsKeyDown(KEY_A))
+		{
+			move->Seek(&map->WorldNode[2][4]);
+		}
+		else if (IsKeyDown(KEY_S))
+		{
+			move->Seek(&map->WorldNode[13][4]);
+		}
 
-    delete map;
-    // De-Initialization
-    //--------------------------------------------------------------------------------------   
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+		move->Update(boy, deltaTime);
+		boy->Update(deltaTime);
 
-    return 0;
+		thirst -= deltaTime;
+		hunger -= deltaTime;
+
+		// Draw
+		//----------------------------------------------------------------------------------
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		map->DrawGraph();
+		if (IsKeyDown(KEY_D))
+		{
+			DrawCircle(move->targetNode->position.x, move->targetNode->position.y, 15, MAGENTA);
+		}
+		boy->Draw();
+
+		char buffer[3];
+		char output[50];
+
+		strcpy_s(output, "Hunger: ");
+		snprintf(buffer, sizeof(buffer), "%d", (int)(hunger / hungerCap * 100));
+		strcat_s(output, buffer);
+		DrawText(output, 20, 20, 20, RED);
+
+		strcpy_s(output, "Thirst: ");
+		snprintf(buffer, sizeof(buffer), "%d", (int)(thirst / thirstCap * 100));
+		strcat_s(output, buffer);
+		DrawText(output, 200, 20, 20, RED);
+
+		EndDrawing();
+		//----------------------------------------------------------------------------------
+	}
+
+	delete map;
+	// De-Initialization
+	//--------------------------------------------------------------------------------------   
+	CloseWindow();        // Close window and OpenGL context
+	//--------------------------------------------------------------------------------------
+
+	return 0;
 }

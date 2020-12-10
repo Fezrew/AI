@@ -1,28 +1,109 @@
 #include "NodeMap.h"
 #include <algorithm>
 #include <vector> 
+#include <raylib.h>
 
 using namespace std;
 
 NodeMap::NodeMap()
 {
-	for(int x = 0; x <= 15; x++)
+	for (int x = 0; x <= 15; x++)
 	{
 		for (int y = 0; y <= 9; y++)
 		{
 			WorldNode[x][y].position.x = x * 50 + 15;
 			WorldNode[x][y].position.y = y * 50 + 15;
 
+			WorldNode[x][y].isWater = false;
+			WorldNode[x][y].isFood = false;
+			WorldNode[x][y].isGround = true;
+
 			if (x == 2 && y == 4)
 			{
 				WorldNode[x][y].isWater = true;
+				WorldNode[x][y].isFood = false;
 				WorldNode[x][y].isGround = false;
 			}
 			else if (x == 13 && y == 4)
 			{
 				WorldNode[x][y].isFood = true;
+				WorldNode[x][y].isWater = false;
 				WorldNode[x][y].isGround = false;
 			}
+			else if (x == 7 && (y > 2 && y < 8) || (x == 1 || x == 2 || x == 3 || x == 12 || x == 13 || x == 14) && (y == 3 || y == 5) || (x == 3 || x == 12) && y == 4)
+			{
+				WorldNode[x][y].isGround = false;
+				WorldNode[x][y].isWater = false;
+				WorldNode[x][y].isFood = false;
+			}
+#pragma region Creating edges
+
+
+			//Up-left connections
+			if (x != 0 && y != 0)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x - 1][y - 1], 1.4 });
+				}
+			}
+			//Upwards connections
+			if (y != 0)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x][y - 1], 1 });
+				}
+			}
+			//Up-right connections
+			if (x != 15 && y != 0)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x + 1][y - 1], 1.4 });
+				}
+			}
+			//Right connections
+			if (x != 15)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x + 1][y], 1 });
+				}
+			}
+			//Down-right connections
+			if (x != 15 && y != 9)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x + 1][y + 1], 1.4 });
+				}
+			}
+			//Downwards connections
+			if (y != 9)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x][y + 1], 1 });
+				}
+			}
+			//Down-Left connections
+			if (x != 0 && y != 9)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x - 1][y + 1], 1.4 });
+				}
+			}
+			//Left connections
+			if (x != 0)
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					WorldNode[x][y].connections.push_back(Edge{ &WorldNode[x - 1][y], 1 });
+				}
+			}
+#pragma endregion
 		}
 	}
 }
@@ -45,22 +126,39 @@ void NodeMap::DrawGraph()
 			{
 				DrawCircle(WorldNode[x][y].position.x, WorldNode[x][y].position.y, 15, ORANGE);
 			}
-			else
+			else if (!WorldNode[x][y].isFood && !WorldNode[x][y].isWater && !WorldNode[x][y].isGround)
 			{
-				DrawCircle(WorldNode[x][y].position.x, WorldNode[x][y].position.y, 15, GREEN);
+				DrawCircle(WorldNode[x][y].position.x, WorldNode[x][y].position.y, 15, BLACK);
+			}
+
+			if (IsKeyDown(KEY_D))
+			{
+				if (WorldNode[x][y].isGround)
+				{
+					DrawCircle(WorldNode[x][y].position.x, WorldNode[x][y].position.y, 15, GREEN);
+				}
+
+				//For each Edge in this node's connections
+				for (Edge e : WorldNode[x][y].connections)
+				{
+					//Draw the Edge
+					DrawLine(WorldNode[x][y].position.x, WorldNode[x][y].position.y, e.target->position.x, e.target->position.y, BLACK);
+				}
 			}
 		}
 	}
 }
 
-bool NodeSort(Node* i, Node* j)
+#pragma region Pathfinding
+
+bool NodeMap::NodeSort(const Node* i, const Node* j)
 {
 	return (i->gScore < j->gScore);
 }
 
-vector<Node*> NodeMap::DijkstrasSearch(Node* startNode, Node* endNode)
+vector<NodeMap::Node*> NodeMap::DijkstrasSearch(Node* startNode, Node* endNode)
 {
-		//Validate the input
+	//Validate the input
 	if (startNode == nullptr || endNode == nullptr)
 	{
 		return vector<Node*>();
@@ -87,7 +185,7 @@ vector<Node*> NodeMap::DijkstrasSearch(Node* startNode, Node* endNode)
 	while (!openList.empty())
 	{
 		//Sort openList based on gScore using the function created above
-		sort(openList.begin(), openList.end(), NodeSort);
+		sort(openList.begin(), openList.end(), NodeMap::NodeSort);
 
 		//Set the current node to the first node in the openList
 		Node* currentNode = openList.front();
@@ -155,3 +253,4 @@ vector<Node*> NodeMap::DijkstrasSearch(Node* startNode, Node* endNode)
 
 	return path;
 }
+#pragma endregion

@@ -18,20 +18,22 @@ public:
 
 	struct Node
 	{
-		bool isWater = false;
-		bool isFood = false;
-		bool isGround = true;
+		bool isWater;
+		bool isFood;
+		bool isGround;
 		Vector2 position;
 
-		float gScore;
+		float gScore = 0;
 		Node* previous;
 
-		std::vector<Edge> connections;
+		vector<Edge> connections;
 	};
 
 	NodeMap();
 	~NodeMap();
 	Node WorldNode[16][10];
+
+	static bool NodeSort(const Node* i, const Node* j);
 	vector<Node*> DijkstrasSearch(Node* startNode, Node* endNode);
 
 	void DrawGraph();

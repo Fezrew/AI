@@ -164,17 +164,28 @@
   <ItemGroup>
     <ClCompile Include="..\AI_Shared\Agent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveBehaviour.cpp" />
     <ClCompile Include="NodeMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AI_Shared\Agent.h" />
     <ClInclude Include="..\AI_Shared\Behaviour.h" />
     <ClInclude Include="..\AI_Shared\IBehaviour.h" />
+    <ClInclude Include="MoveBehaviour.h" />
     <ClInclude Include="NodeMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AI_Agents\AI_Agents.vcxproj">
+      <Project>{43c47e4e-2f30-48d7-8abe-bfa5c5f5798e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\AI_Agents_IBehaviour\AI_Agents_IBehaviour.vcxproj">
+      <Project>{c7fc8ccd-3d44-4f42-a3a0-885857776edf}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\AI_DijkstrasSearch\AI_DijkstrasSearch.vcxproj">
       <Project>{fa08050d-5807-42e6-9d9e-9abbe3af23c9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\AI_Wander\AI_Wander.vcxproj">
+      <Project>{8a97479b-6da2-4242-8078-f694d6df2650}</Project>
     </ProjectReference>
     <ProjectReference Include="..\RayGUI_Widgets\RayGUI_Widgets.vcxproj">
       <Project>{5410fc57-321e-43d5-837c-7a47033041b8}</Project>
